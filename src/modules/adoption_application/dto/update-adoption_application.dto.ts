@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateAdoptionApplicationDto } from './create-adoption_application.dto';
+import { ApplicationStatus } from '../enums/adoption_app_status.enum';
 
-export class UpdateAdoptionApplicationDto extends PartialType(CreateAdoptionApplicationDto) {}
+export class UpdateAdoptionApplicationDto {
+    petId?: number;
+    applicantId?: number;
+    status?: ApplicationStatus; 
+}

@@ -8,23 +8,34 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class PetService {
   constructor(@InjectRepository(Pet) private petRepository: Repository<Pet>) {}
-  create(createPetDto: CreatePetDto) {
-    return 'This action adds a new pet';
+
+  async create(createPetDto: CreatePetDto): Promise<Pet> {
+    const newPet = this.petRepository.create(createPetDto);
+    return await this.petRepository.save(newPet);
   }
 
-  async findAll() {
+  async findAll(): Promise<Pet[]> {
     return await this.petRepository.find();
   }
 
-  async findOne(id: number) {
-    return await this.petRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<Pet> {
+    const pet = await this.petRepository.findOne({ where: { id } });
+    if (!pet) {
+      throw new Error(`Pet with ID ${id} not found.`);
+    }
+    return pet;
   }
 
-  update(id: number, updatePetDto: UpdatePetDto) {
-    return `This action updates a #${id} pet`;
+  async update(id: number, updatePetDto: UpdatePetDto): Promise<Pet> {
+    await this.petRepository.update(id, updatePetDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pet`;
+  async remove(id: number) {
+    await this.petRepository.delete(id);
+    return {
+      success: true,
+      message: `Pet with ID ${id} was successfully deleted.`
+    };
   }
 }

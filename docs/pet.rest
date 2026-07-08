@@ -1,0 +1,35 @@
+###
+POST http://127.0.0.1:3000/pet
+Content-Type: application/json
+
+{
+    "name": "Dog",
+    "breed": 1,
+    "age": 3,
+    "gender": "Male",
+    "image": "dog.jpg"
+
+}
+
+###
+GET http://127.0.0.1:3000/pet
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBlZHJvIiwiZW1haWwiOiJwcnVlYmFAc2lvcy5jb20iLCJpYXQiOjE3ODM0NjYxNzksImV4cCI6MTc4MzQ2NjQxOX0.f-QuJ49Q68XLeX5ia5_uVjuNSFDu46ArDKgBYRQeuoE
+
+###
+GET http://127.0.0.1:3000/pet/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBlZHJvIiwiZW1haWwiOiJwcnVlYmFAc2lvcy5jb20iLCJpYXQiOjE3ODM0NjYxNzksImV4cCI6MTc4MzQ2NjQxOX0.f-QuJ49Q68XLeX5ia5_uVjuNSFDu46ArDKgBYRQeuoE
+
+###
+PUT http://127.0.0.1:3000/pet/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBlZHJvIiwiZW1haWwiOiJwcnVlYmFAc2lvcy5jb20iLCJpYXQiOjE3ODM0NjYxNzksImV4cCI6MTc4MzQ2NjQxOX0.f-QuJ49Q68XLeX5ia5_uVjuNSFDu46ArDKgBYRQeuoE
+Content-Type: application/json
+
+{
+    "name": "Rex modified"
+}
+
+###
+DELETE http://127.0.0.1:3000/pet/2
+Authorization: Bearer
+
+

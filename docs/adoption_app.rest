@@ -1,0 +1,32 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6Ik1hcmNvIiwiZW1haWwiOiJwcnVlYmEzNEBzaS5jb20iLCJpYXQiOjE3ODM1MjUxMjIsImV4cCI6MTc4MzUyNTM2Mn0.16bjHVcVXWBUJE1BICGeVtc5OTBi2Ixq7FvT1PKK7yc
+
+###
+POST http://127.0.0.1:3000/adoption-application
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "applicantId": 8,
+    "petId": 4
+}
+
+### 
+GET http://127.0.0.1:3000/adoption-application
+Authorization: Bearer {{token}}
+
+###
+GET http://127.0.0.1:3000/adoption-application/1
+Authorization: Bearer {{token}}
+
+###
+PUT http://127.0.0.1:3000/adoption-application/5
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "status": "Approved"
+}
+
+###
+DELETE http://127.0.0.1:3000/adoption-application/4
+Authorization: Bearer {{token}}

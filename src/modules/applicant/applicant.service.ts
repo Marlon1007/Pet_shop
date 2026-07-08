@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
+import { Applicant } from './entities/applicant.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ApplicantService {
-  create(createApplicantDto: CreateApplicantDto) {
-    return 'This action adds a new applicant';
+  constructor(@InjectRepository(Applicant) private applicantRepository: Repository<Applicant>) {}
+
+  async create(createApplicantDto: CreateApplicantDto):Promise<Applicant> {
+    const newApplicant = this.applicantRepository.create(createApplicantDto);
+    return await this.applicantRepository.save(newApplicant);
   }
 
-  findAll() {
-    return `This action returns all applicant`;
+  async findAll():Promise<Applicant[]> {
+    return await this.applicantRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} applicant`;
+  async findOne(id: number):Promise<Applicant> {
+    const applicant = await this.applicantRepository.findOne({ where: { id } });
+    if (!applicant) {
+      throw new Error(`Applicant with ID ${id} not found.`);
+    }
+    return applicant;
   }
 
-  update(id: number, updateApplicantDto: UpdateApplicantDto) {
-    return `This action updates a #${id} applicant`;
+  async update(id: number, updateApplicantDto: UpdateApplicantDto):Promise<Applicant> {
+    await this.applicantRepository.update(id, updateApplicantDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} applicant`;
+  async remove(id: number) {
+    await this.applicantRepository.delete(id);
+    return {
+      success: true,
+      message: `Applicant with ID ${id} was successfully deleted.`
+    };
   }
 }

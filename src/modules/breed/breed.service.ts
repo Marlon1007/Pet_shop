@@ -8,23 +8,33 @@ import { Repository } from 'typeorm';
 export class BreedService {
 
   constructor(@Inject('BREED_REPOSITORY') private breedRepository:Repository<Breed>) {}
-  create(createBreedDto: CreateBreedDto) {
-    return 'This action adds a new breed';
+  async create(createBreedDto: CreateBreedDto): Promise<Breed> {
+    return await this.breedRepository.save(createBreedDto);
   }
 
-  async findAll() {
+  async findAll(): Promise<Breed[]> {
     return await this.breedRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} breed`;
+  async findOne(id: number): Promise<Breed> {
+    const breed = await this.breedRepository.findOneBy({ id });
+    if (!breed) {
+      throw new Error(`Breed with ID ${id} not found.`);
+    }
+    return breed;
   }
 
-  update(id: number, updateBreedDto: UpdateBreedDto) {
-    return `This action updates a #${id} breed`;
+  async update(id: number, updateBreedDto: UpdateBreedDto): Promise<Breed> {
+    await this.breedRepository.update(id, updateBreedDto);
+    return await this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} breed`;
+  async remove(id: number) {
+    await this.breedRepository.delete(id);
+    return {
+      success: true,
+      message: `Breed with ID ${id} was successfully deleted.`
+    };
   }
+
 }

@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards } from '@nestjs/common';
 import { AdoptionApplicationService } from './adoption_application.service';
 import { CreateAdoptionApplicationDto } from './dto/create-adoption_application.dto';
 import { UpdateAdoptionApplicationDto } from './dto/update-adoption_application.dto';
-
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+@UseGuards(JwtAuthGuard)
 @Controller('adoption-application')
 export class AdoptionApplicationController {
   constructor(private readonly adoptionApplicationService: AdoptionApplicationService) {}
@@ -22,7 +23,7 @@ export class AdoptionApplicationController {
     return this.adoptionApplicationService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateAdoptionApplicationDto: UpdateAdoptionApplicationDto) {
     return this.adoptionApplicationService.update(+id, updateAdoptionApplicationDto);
   }
