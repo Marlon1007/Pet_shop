@@ -1,6 +1,7 @@
 ###
 POST http://127.0.0.1:3000/breed
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik1hcmNvIiwiZW1haWwiOiJwcnVlYmEzNEBzaS5jb20iLCJpYXQiOjE3OTMwMjE5NTgsImV4cCI6MTc5MzAyMjE5OH0.BBlrMGDt51iqA8amZSQrmyVaMv9EBjbEFYccCTEI94A
 
 {
   "name": "Golden Retriever"
@@ -8,7 +9,7 @@ Content-Type: application/json
 
 ###
 GET http://127.0.0.1:3000/breed
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlBlZHJvIiwiZW1haWwiOiJwcnVlYmFAc2lvcy5jb20iLCJpYXQiOjE3ODM0Njc2OTIsImV4cCI6MTc4MzQ2NzkzMn0.EmXikXkHD9XeyNm1oIo0ef2yivphowtjcjdBvCiuslk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik1hcmNvIiwiZW1haWwiOiJwcnVlYmEzNEBzaS5jb20iLCJpYXQiOjE3OTMwMjE5NTgsImV4cCI6MTc5MzAyMjE5OH0.BBlrMGDt51iqA8amZSQrmyVaMv9EBjbEFYccCTEI94A
 
 ###
 GET http://127.0.0.1:3000/breed/1
