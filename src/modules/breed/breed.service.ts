@@ -13,7 +13,7 @@ export class BreedService {
   }
 
   async findAll(): Promise<Breed[]> {
-    return await this.breedRepository.find();
+    return await this.breedRepository.find({ order: { id: 'ASC' } });
   }
 
   async findOne(id: number): Promise<Breed> {
