@@ -3,9 +3,10 @@ import { BreedService } from './breed.service';
 import { CreateBreedDto } from './dto/create-breed.dto';
 import { UpdateBreedDto } from './dto/update-breed.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-@UseGuards(JwtAuthGuard)
-
+//@UseGuards(JwtAuthGuard)
+@ApiTags('Breed')
 @Controller('breed')
 export class BreedController {
   constructor(private readonly breedService: BreedService) {}

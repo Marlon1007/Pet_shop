@@ -3,7 +3,9 @@ import { PetService } from './pet.service';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Pet')
 @UseGuards(JwtAuthGuard)
 @Controller('pet')
 export class PetController {

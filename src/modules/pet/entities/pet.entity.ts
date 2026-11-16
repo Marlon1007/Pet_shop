@@ -8,20 +8,20 @@ export class Pet {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column({type: "varchar", length: 100})
     name!: string;
 
     // Relation: Many pets belong to one breed
     @ManyToOne(() => Breed, (breed) => breed.pet, { eager: true })
     breed!: Breed;
 
-    @Column()
+    @Column({type: "int"})
     age!: number;
 
-    @Column()
+    @Column({type: "varchar", length: 100})
     gender!: string;
 
-    @Column()
+    @Column({type: "varchar", length: 255, nullable: true})
     image!: string;
 
     @Column({

@@ -6,13 +6,13 @@ export class User {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column({type: "varchar", length: 100})
     name!:string;
 
-    @Column()
-    mail!:string
+    @Column({type: "varchar", length: 100, unique: true})
+    email!:string
 
-    @Column()
+    @Column({type: "varchar", length: 100})
     password!:string
 
     @OneToOne(() => Person, person => person.user, { cascade: true })

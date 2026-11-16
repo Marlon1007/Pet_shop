@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "name": "Marco",
-    "mail": "prueba34@si.com",
+    "email": "prueba345@si.com",
     "password": "123456"
 }
 ###login
@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     "name": "Marco",
-    "email": "prueba34@si.com",
+    "email": "prueba345@si.com",
     "password": "123456"
 }
 
