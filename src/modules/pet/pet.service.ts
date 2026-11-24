@@ -9,8 +9,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class PetService {
   constructor(@InjectRepository(Pet) private petRepository: Repository<Pet>) {}
 
+  queryBuilder(alias: string) {
+    return this.petRepository.createQueryBuilder(alias);
+  }
+
   async create(createPetDto: CreatePetDto): Promise<Pet> {
-    const newPet = this.petRepository.create(createPetDto);
+    const { breed, ...petData } = createPetDto;
+    const newPet = this.petRepository.create({ ...petData, breed: { id: breed } });
     return await this.petRepository.save(newPet);
   }
 
@@ -27,7 +32,11 @@ export class PetService {
   }
 
   async update(id: number, updatePetDto: UpdatePetDto): Promise<Pet> {
-    await this.petRepository.update(id, updatePetDto);
+    const { breed, ...petData } = updatePetDto;
+    await this.petRepository.update(id, {
+      ...petData,
+      breed: breed === undefined ? undefined : { id: breed },
+    });
     return this.findOne(id);
   }
 

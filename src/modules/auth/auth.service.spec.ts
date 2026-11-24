@@ -35,10 +35,10 @@ describe('AuthService', () => {
     service = new AuthService(new UsersService(repository), jwtService);
   });
 
-  it('stores the registration email in the user mail field', async () => {
+  it('stores the registration email in the user email field', async () => {
     await service.register(credentials);
 
-    expect(users[0].mail).toBe('adopter@example.com');
+    expect(users[0].email).toBe('adopter@example.com');
   });
 
   it('stores a password hash that verifies the original password', async () => {
@@ -78,27 +78,21 @@ describe('AuthService', () => {
     );
   });
 
-  it.each(['Unknown', 'adopter', ' Adopter', 'Adopter ', ''])(
-    'rejects a name that does not exactly match: "%s"',
-    async (name) => {
-      await service.register(credentials);
+  it('authenticates with email and password without a name', async () => {
+    await service.register(credentials);
+    const result = await service.login({ email: credentials.email, password: credentials.password });
+    expect(jwtService.verify<Record<string, unknown>>(result.access_token).email).toBe(credentials.email);
+  });
 
-      await expect(
-        service.login({ ...credentials, name }),
-      ).rejects.toBeInstanceOf(UnauthorizedException);
-    },
-  );
+  it('validates login credentials without requiring a name', async () => {
+    const input = plainToInstance(LoginAuthDto, { email: credentials.email, password: credentials.password });
+    expect(await validate(input)).toEqual([]);
+  });
 
-  it.each([undefined, '', 123])(
-    'rejects an invalid login name: %s',
-    async (name) => {
-      const input = plainToInstance(LoginAuthDto, { ...credentials, name });
-
-      const errors = await validate(input);
-
-      expect(errors.some((error) => error.property === 'name')).toBe(true);
-    },
-  );
+  it.each([undefined, '', 123])('requires a valid name when registering: %s', async (name) => {
+    const errors = await validate(plainToInstance(RegisterAuthDto, { ...credentials, name }));
+    expect(errors.some(error => error.property === 'name')).toBe(true);
+  });
 
   it.each(['email', 'password'])(
     'requires %s when registering',

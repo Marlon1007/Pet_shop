@@ -1,0 +1,72 @@
+@baseUrl = http://127.0.0.1:3000
+@email = prueba345@si.com
+@password = 123456
+@breedId = 1
+@token = {{login.response.body.access_token}}
+
+### Obtain a token using an existing account
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### List pets (slides 4-7)
+GET {{baseUrl}}/pet
+Authorization: Bearer {{token}}
+
+### Reject an empty payload (slide 5)
+POST {{baseUrl}}/pet
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### Create a pet using an existing breed ID (slide 6)
+POST {{baseUrl}}/pet
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Luna",
+  "breed": {{breedId}},
+  "age": 3,
+  "gender": "Female",
+  "image": "",
+  "status": "Available"
+}
+
+### Search by name (slides 8-11, case-sensitive LIKE on PostgreSQL)
+GET {{baseUrl}}/pet/back?q=Lu
+Authorization: Bearer {{token}}
+
+### Order by age ascending (slides 12-13)
+GET {{baseUrl}}/pet/back?sort=asc
+Authorization: Bearer {{token}}
+
+### Order by age descending (slide 14)
+GET {{baseUrl}}/pet/back?sort=desc
+Authorization: Bearer {{token}}
+
+### First page, two pets per page (slides 15-24)
+GET {{baseUrl}}/pet/back?page=1
+Authorization: Bearer {{token}}
+
+### Second page
+GET {{baseUrl}}/pet/back?page=2
+Authorization: Bearer {{token}}
+
+### Third page
+GET {{baseUrl}}/pet/back?page=3
+Authorization: Bearer {{token}}
+
+### Combine pagination and search (slide 25)
+GET {{baseUrl}}/pet/back?page=1&q=Lu
+Authorization: Bearer {{token}}
+
+### Combine pagination, search and age order (slide 26)
+GET {{baseUrl}}/pet/back?page=1&q=Lu&sort=asc
+Authorization: Bearer {{token}}

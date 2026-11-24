@@ -28,7 +28,6 @@ export class AuthService {
 
     if (
       !user ||
-      user.name !== credentials.name ||
       !(await compare(credentials.password, user.password))
     ) {
       throw new UnauthorizedException('Invalid credentials');

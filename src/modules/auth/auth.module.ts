@@ -12,7 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     UsersModule,
     JwtModule.register({
       secret: "my_secret_key",
-      signOptions: { expiresIn: '800S' },
+      signOptions: { expiresIn: '8h' },
     }),
     TypeOrmModule.forFeature([User]),
   ],

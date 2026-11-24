@@ -96,3 +96,27 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Class 18
+
+Pet listing follows the class query-builder workflow. The authenticated endpoint
+`GET /pet/back` accepts optional `q` (case-sensitive name search), `sort` (`asc` or
+`desc` by age), and `page` (positive integer, default `1`). Each page contains up
+to two pets. The response contains `data`, `total`, `page`, and `last_page`.
+The original `GET /pet` returns an array.
+
+Use `docs/rest/pet.rest` for the slide-by-slide requests. Set the account values
+and an existing breed ID, then execute the named login request to obtain a token.
+Swagger is available at `/api` with bearer authorization.
+
+Pet creation requires `name`, numeric `breed`, integer `age`, and `gender`.
+`image` and `status` are optional. Updates accept partial payloads.
+
+Run the focused checks with `npm test -- --runInBand --runTestsByPath
+src/modules/pet/pet.service.spec.ts src/modules/pet/pet.controller.spec.ts`.
+
+## Authentication
+
+`POST /auth/login` accepts `email` and `password`. Registration also requires
+`name`. Access tokens expire eight hours after login. Sign in again to obtain a
+token with the updated duration.
